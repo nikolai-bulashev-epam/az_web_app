@@ -12,18 +12,19 @@ $serverName = preg_split( '/\:|,/', $dsn_array['Server'] );
 $connectionOptions = array(
     "Database" => $dsn_array['Initial Catalog'], // update me
     "Uid" => $dsn_array['User ID'], // update me
-    "PWD" => $dsn_array['Password'] // update me
+    "PWD" => '1gаxsEio' // update me
 );
+var_dump($connectionOptions);
 $conn = sqlsrv_connect($serverName[1], $connectionOptions);
 if ($conn === FALSE) {
     var_dump(sqlsrv_errors());
     die('cannot connect to DB');
 }
-$tsql = "SELECT DB_NAME() as [dbname]";
+$tsql = "SELECT DB_NAME() as [dbname];";
 $getResults= sqlsrv_query($conn, $tsql);
 echo ("Reading data from table" . PHP_EOL);
 if ($getResults == FALSE) 
-    echo (sqlsrv_errors());
+    var_dump (sqlsrv_errors());
 while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
  echo "Welcome to database: ".$row['dbname'];
 }
@@ -45,7 +46,7 @@ $tsql = "SELECT TOP (1000) [CustomerID],[NameStyle],[Title],[FirstName],[MiddleN
 $getResults= sqlsrv_query($conn, $tsql);
 echo '<table><tr><td>CustomerID</td><td>NameStyle</td><td>Title</td><td>FirstName</td><td>MiddleName</td><td>LastName</td><td>Suffix</td><td><CompanyName/td><td>SalesPerson</td><td>EmailAddress</td><td>Phone</td></tr>';
 if ($getResults == FALSE) 
-    echo (sqlsrv_errors());
+    var_dump (sqlsrv_errors()); 
 while ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
  echo "<tr>";
  	echo "<td>".$row['CustomerID']."</td>";
