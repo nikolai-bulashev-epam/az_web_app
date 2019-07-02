@@ -15,6 +15,10 @@ $connectionOptions = array(
     "PWD" => $dsn_array['Password'] // update me
 );
 $conn = sqlsrv_connect($serverName[1], $connectionOptions);
+if ($conn === FALSE) {
+    var_dump(sqlsrv_errors());
+    die('cannot connect to DB');
+}
 $tsql = "SELECT DB_NAME() as [dbname]";
 $getResults= sqlsrv_query($conn, $tsql);
 echo ("Reading data from table" . PHP_EOL);
